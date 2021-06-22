@@ -1,4 +1,4 @@
-export const getStaticPAths = async () => {
+export const getStaticPaths = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const data = await res.json();
 
@@ -14,10 +14,22 @@ export const getStaticPAths = async () => {
   };
 };
 
-const Details = () => {
+export const getStaticProps = async (context) => {
+  const id = context.params.id;
+  const res = await fetch("https://jsonplaceholder.typicode.com/users/" + id);
+  const data = await res.json();
+  return {
+    props: { frost: data },
+  };
+};
+
+const Details = ({ frost }) => {
   return (
     <div>
-      <h1>Details</h1>
+      <h1>{frost.name}</h1>
+      <p>{frost.email}</p>
+      <p>{frost.website}</p>
+      <p>{frost.address.city}</p>
     </div>
   );
 };
