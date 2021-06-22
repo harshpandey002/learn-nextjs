@@ -1,4 +1,5 @@
 import styles from "../../styles/Frost.module.css";
+import Link from "next/link";
 
 export const getStaticProps = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
@@ -17,11 +18,11 @@ const Frost = ({ frosts }) => {
     <>
       <h1>Frosts</h1>
       {frosts.map((frost) => (
-        <div key={frost.id}>
+        <Link href={`/frost/${frost.id}`} key={frost.id}>
           <a className={styles.single}>
             <h3>{frost.name}</h3>
           </a>
-        </div>
+        </Link>
       ))}
     </>
   );
